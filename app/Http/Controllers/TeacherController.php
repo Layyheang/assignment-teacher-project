@@ -9,7 +9,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = Teacher::latest()->paginate(10);
+        $teachers = Teacher::orderBy('tid', 'asc')->get();
         return view('teachers.index', compact('teachers'));
     }
 
@@ -45,8 +45,15 @@ class TeacherController extends Controller
 
     public function update(Request $request, $id)
     {
-        $teacher = Teacher::findOrFail($id);
-        $teacher->update($request->all());
+        $teacher = Teacher::where('tid', $id)->firstOrFail();
+
+        $teacher->update([
+            'full_name' => $request->full_name,
+            'gender'    => $request->gender,
+            'degree'    => $request->degree,
+            'tel'       => $request->tel,
+        ]);
+
         return redirect()->route('teachers.index');
     }
 

@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teacher extends Model
 {
-    use HasFactory;
-
     protected $primaryKey = 'tid';
+    public $incrementing = true;   
+    protected $keyType = 'int';
 
     protected $fillable = [
         'full_name',
@@ -18,4 +18,3 @@ class Teacher extends Model
         'tel'
     ];
 }
-
